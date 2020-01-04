@@ -331,16 +331,16 @@ void ADC0_init(){
 	SYSCTL->RCGCGPIO |= 0x10;       // enable clock to GPIOE
   SYSCTL->RCGCADC |= 1;           // enable clock to ADC0
     // initialize port pin PE1 for ADC0 input
-  GPIOE->AFSEL |= 0x04;           // enable alternate function
-  GPIOE->DEN &= ~0x04;            // disable digital function
-  GPIOE->AMSEL |= 0x04;           // enable analog function
+  GPIOE->AFSEL |= 0x02;           // enable alternate function
+  GPIOE->DEN &= ~0x02;            // disable digital function
+  GPIOE->AMSEL |= 0x02;           // enable analog function
     // initialize ADC0 Sample Sequencer 0
   ADC0->ACTSS &= ~1;              // disable ADC0 sequencer 0 during configuration
   ADC0->EMUX &= ~0x000F;          // software trigger for sequencer 0
   ADC0->SSMUX0 &= ~0xFFFFFFFF;    // clear channel selects first
   ADC0->SSMUX0 |= 0x00000002;     // set channel 1 for first and only sample 0x02 -> pin PE1; 
   ADC0->SSCTL0 |= 0x00000006;     // finish sequence at 1st sample and post RIS bit 
-	ADC0->SAC = 0x6; 								// 16x hardware oversampling
+	ADC0->SAC = 0x6; 								// 64x hardware oversampling
   ADC0->ACTSS |= 1;               // enable ADC0 sequencer 0
 }
 
